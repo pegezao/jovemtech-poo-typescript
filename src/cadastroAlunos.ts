@@ -47,22 +47,57 @@ class Aluno implements IAluno {
   getNotas(): number[] {
     return this.notas.slice();
   }
+
+  // Calcula a média das notas
+  calcularMedia(): number {
+    if (this.notas.length === 0) {
+      return 0;
+    }
+
+    let soma = 0;
+
+    for (let i = 0; i < this.notas.length; i++) {
+      soma = soma + this.notas[i];
+    }
+
+    return soma / this.notas.length;
+  }
+
+  // Informa se o aluno foi aprovado ou reprovado
+  verificarSituacao(): string {
+    const media = this.calcularMedia();
+
+    if (media >= 7) {
+      return "Aprovado";
+    } else {
+      return "Reprovado";
+    }
+  }
 }
 
 const alunos: Aluno[] = [
   new Aluno("Ana Souza", "Desenvolvimento Web", [8.5, 7.0]),
-  new Aluno("Bruno Oliveira", "Banco de Dados", [5.0, 6.5])
+  new Aluno("Bruno Oliveira", "Banco de Dados", [5.0, 6.5]),
+  new Aluno("Carla Mendes", "Programação Orientada a Objetos", [9.0, 8.5])
 ];
 
 console.log("Cadastro de alunos");
 console.log("------------------");
 
-// Percorre cada aluno e mostra os dados cadastrados
+// Percorre cada aluno e mostra o resultado da avaliação
 alunos.forEach(function (aluno) {
   const notas = aluno.getNotas();
+  const media = aluno.calcularMedia();
+  const situacao = aluno.verificarSituacao();
 
   console.log("Aluno: " + aluno.nome);
   console.log("Curso: " + aluno.curso);
   console.log("Notas: " + notas.join(" e "));
+  console.log("Média: " + media.toFixed(1));
+  console.log("Situação: " + situacao);
   console.log("");
 });
+
+// Tenta alterar as notas com um valor inválido para testar o encapsulamento
+alunos[0].definirNotas([11, 8.0]);
+console.log("Notas da aluna " + alunos[0].nome + " depois da tentativa: " + alunos[0].getNotas().join(" e "));
