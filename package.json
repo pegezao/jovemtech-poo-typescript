@@ -1,0 +1,12 @@
+{
+  "name": "cadastro-alunos-ts",
+  "version": "1.0.0",
+  "description": "Cadastro de alunos em TypeScript para a trilha JovemTech",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/cadastroAlunos.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
